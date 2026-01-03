@@ -1,6 +1,5 @@
-### Paso 1: Configurar el Backend (Servidor)
 
-**Opción A: Si usas Anaconda / Miniconda (RECOMENDADO ⭐)**
+**Opción A: Si usas Anaconda / Miniconda (RECOMENDADO )**
 Es la forma más rápida. Ejecuta esto y se instalará todo automáticamente:
 ```bash
 conda env create -f environment.yml
@@ -16,7 +15,7 @@ conda activate web
 
 ---
 
-*Una vez instalado (con Opción A o B), prepara la base de datos:*
+***Una vez instalado (con Opción A o B), prepara la base de datos:***
 
 ```bash
 python manage.py migrate
