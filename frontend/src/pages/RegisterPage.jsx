@@ -1,0 +1,52 @@
+import { useState } from 'react'
+import { useNavigate, Link } from 'react-router-dom'
+import axios from 'axios'
+
+const RegisterPage = () => {
+    const [formData, setFormData] = useState({username: '', email: '', password: ''})
+    const navigate = useNavigate()
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        try {
+            await axios.post('http://127.0.0.1:8000/api/register/', formData)
+            alert('Registro exitoso. Ahora inicia sesión.')
+            navigate('/login')
+        } catch (error) {
+            console.error(error)
+            alert('Error al registrar. Revisa los datos.')
+        }
+    }
+
+    return (
+        <div className="min-h-screen flex items-center justify-center animate-fade-in">
+             <div className="bg-[#1E1E1E] p-8 rounded-2xl border border-gray-800 shadow-2xl w-full max-w-md">
+                <h2 className="text-3xl font-black italic uppercase text-white mb-6 text-center">
+                    Crear <span className="text-[#E10600]">Cuenta</span>
+                </h2>
+                <form onSubmit={handleSubmit} className="space-y-6">
+                    <div>
+                        <label className="block text-gray-400 text-sm font-bold mb-2 uppercase">Usuario</label>
+                        <input type="text" onChange={(e)=>setFormData({...formData, username:e.target.value})} className="w-full bg-black/30 border border-gray-700 rounded-lg p-3 text-white focus:border-[#E10600] outline-none" />
+                    </div>
+                    <div>
+                        <label className="block text-gray-400 text-sm font-bold mb-2 uppercase">Email</label>
+                        <input type="email" onChange={(e)=>setFormData({...formData, email:e.target.value})} className="w-full bg-black/30 border border-gray-700 rounded-lg p-3 text-white focus:border-[#E10600] outline-none" />
+                    </div>
+                    <div>
+                        <label className="block text-gray-400 text-sm font-bold mb-2 uppercase">Contraseña</label>
+                        <input type="password" onChange={(e)=>setFormData({...formData, password:e.target.value})} className="w-full bg-black/30 border border-gray-700 rounded-lg p-3 text-white focus:border-[#E10600] outline-none" />
+                    </div>
+                    <button type="submit" className="w-full bg-gray-700 hover:bg-[#E10600] text-white font-bold py-3 rounded-lg uppercase tracking-widest transition-colors">
+                        Registrarse
+                    </button>
+                </form>
+                 <div className="mt-6 text-center">
+                    <p className="text-gray-500 text-sm">¿Ya tienes cuenta?</p>
+                    <Link to="/login" className="text-white font-bold hover:text-[#E10600] uppercase text-sm">Inicia Sesión</Link>
+                </div>
+            </div>
+        </div>
+    )
+}
+export default RegisterPage

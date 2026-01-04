@@ -15,11 +15,35 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from api.views import lista_elementos # <--- Importamos la nueva vista
+from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
+from rest_framework import routers
+from api import views
+from api.views import SuscribirseView, RegisterView, MiPerfilView 
+
+# Router automático 
+from django.contrib import admin
+from django.urls import path, include
+from api.views import SuscribirseView, RegisterView # Importamos las vistas nuevas
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # Esta será la ruta oficial de tus datos:
-    path('api/elementos/', lista_elementos),
+    
+    # 1. Conectamos el archivo que acabamos de crear (api/urls.py)
+    # Esto manejará /api/equipos, /api/noticias, etc.
+    path('api/', include('api.urls')), 
+    path('api/mi-perfil/', MiPerfilView.as_view(), name='mi_perfil'),
+    
+    # 2. Rutas de Autenticación (Login, Registro, Tokens)
+    path('api/register/', RegisterView.as_view(), name='auth_register'),
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'), # Login
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    
+    # 3. Ruta de Suscripción
+    path('api/suscribirse/<int:categoria_id>/', SuscribirseView.as_view(), name='suscribirse'),
 ]

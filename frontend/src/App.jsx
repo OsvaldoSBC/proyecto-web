@@ -1,35 +1,37 @@
-import { useEffect, useState } from 'react'
-import axios from 'axios'
-import './App.css'
+import { Routes, Route } from 'react-router-dom'
+import Navbar from './components/Navbar'
+import Home from './pages/Home'
+import Categorias from './pages/Categorias'
+import CategoriaDetalle from './pages/CategoriaDetalle'
+import Equipos from './pages/Equipos'
+import Noticias from './pages/Noticias'
+import NoticiaDetalle from './pages/NoticiaDetalle'
+// NUEVOS IMPORTS
+import LoginPage from './pages/LoginPage' 
+import RegisterPage from './pages/RegisterPage'
+import { AuthProvider } from './context/AuthContext' // <--- IMPORTANTE
 
 function App() {
-  const [elementos, setElementos] = useState([])
-
-  useEffect(() => {
-    // Aquí conectamos con tu Django
-    axios.get('http://127.0.0.1:8000/api/elementos/')
-      .then(response => {
-        setElementos(response.data)
-      })
-      .catch(error => console.error("Error:", error))
-  }, [])
-
-  // --- AQUÍ EMPIEZA TU HTML ---
   return (
-    <div className="contenedor">
-      <header>
-        <h1>🔥 Mi Proyecto Profesional</h1>
-        <p>Desarrollado con Django y React</p>
-      </header>
-
-      <main className="grid">
-        {elementos.map((item) => (
-          <div key={item.id} className="tarjeta">
-            <h2>{item.titulo}</h2>
-            <p>{item.descripcion}</p>
-          </div>
-        ))}
-      </main>
+    <div className="min-h-screen bg-[#121212]">
+      {/* ENVUELVE TODO CON AUTHPROVIDER */}
+      <AuthProvider> 
+        <Navbar />
+        <main className="container mx-auto px-4 py-8">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/categorias" element={<Categorias />} />
+            <Route path="/categorias/:id" element={<CategoriaDetalle />} />
+            <Route path="/equipos" element={<Equipos />} />
+            <Route path="/noticias" element={<Noticias />} />
+            <Route path="/noticias/:id" element={<NoticiaDetalle />} />
+            
+            {/* RUTAS DE AUTH */}
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+          </Routes>
+        </main>
+      </AuthProvider>
     </div>
   )
 }
