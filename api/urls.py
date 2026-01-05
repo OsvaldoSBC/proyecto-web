@@ -1,22 +1,32 @@
-from django.urls import path, include
-from rest_framework.routers import DefaultRouter
+# backend/api/urls.py
+from django.urls import path
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from .views import (
-    OrganizacionViewSet, 
-    CategoriaViewSet, 
-    EquipoViewSet, 
-    PilotoViewSet, 
-    NoticiaViewSet
+    RegisterView, 
+    SuscribirseView, 
+    MiPerfilView, 
+    RaceSuiteDashboardView, 
+    RaceSuitePilotoDetailView,
+    get_equipos,
+    get_categorias, get_categoria_detail, get_noticias, get_noticia_detail 
 )
 
-# Creamos el Router (el encargado de crear las URLs automáticas)
-router = DefaultRouter()
-router.register(r'organizaciones', OrganizacionViewSet)
-router.register(r'categorias', CategoriaViewSet)
-router.register(r'equipos', EquipoViewSet)
-router.register(r'pilotos', PilotoViewSet)
-router.register(r'noticias', NoticiaViewSet)
-
 urlpatterns = [
-    # Esto incluye todas las rutas generadas por el router (ej: /api/equipos/)
-    path('', include(router.urls)),
+    # Autenticación
+    path('register/', RegisterView.as_view(), name='auth_register'),
+    path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+
+    # Usuario y Dashboard (Race Suite)
+    path('mi-perfil/', MiPerfilView.as_view(), name='mi_perfil'),
+    path('race-suite-dashboard/', RaceSuiteDashboardView.as_view(), name='race-suite-dashboard'), 
+    path('race-suite-piloto/<int:pk>/', RaceSuitePilotoDetailView.as_view(), name='race-suite-piloto'),
+    
+    # Contenido Público
+    path('equipos/', get_equipos, name='equipos'),
+    path('categorias/', get_categorias, name='categorias'),
+    path('categorias/<int:pk>/', get_categoria_detail, name='categoria_detail'),
+    path('noticias/', get_noticias, name='noticias'),
+    path('noticias/<int:pk>/', get_noticia_detail, name='noticia_detail'),
+    path('suscribirse/<int:categoria_id>/', SuscribirseView.as_view(), name='suscribirse'),
 ]

@@ -9,3 +9,19 @@ db.sqlite3
 node_modules/
 dist/
 .DS_Store
+
+
+# --- SEGURIDAD (¡Lo más importante!) ---
+.env
+db.sqlite3
+
+# --- PYTHON ---
+__pycache__/
+*.py[cod]
+venv/
+env/
+
+# --- FRONTEND (NODE) ---
+frontend/node_modules/
+frontend/dist/
+frontend/.env

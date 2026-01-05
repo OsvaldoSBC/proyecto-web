@@ -1,7 +1,11 @@
 
 from django.db import models
 from django.contrib.auth.models import User
-# 1. ORGANIZACIÓN
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+
+# Modelo para Organizaciones (ej. FIA, IndyCar)
 class Organizacion(models.Model):
     nombre = models.CharField(max_length=100)
     siglas = models.CharField(max_length=20)
@@ -16,7 +20,7 @@ class Organizacion(models.Model):
     def __str__(self):
         return self.nombre
 
-# 2. CATEGORÍA 
+# Modelo para Categorías o Series de carreras
 class Categoria(models.Model):
     organizacion = models.ForeignKey(Organizacion, related_name='categorias', on_delete=models.CASCADE)
     nombre = models.CharField(max_length=100)
@@ -26,7 +30,6 @@ class Categoria(models.Model):
     video_url = models.URLField(null=True, blank=True)
     calendario_url = models.URLField(null=True, blank=True)
     
-    # --- REDES SOCIALES PROPIAS DE LA CATEGORÍA ---
     web_oficial = models.URLField(blank=True, null=True, verbose_name="Sitio Web Oficial")
     facebook = models.URLField(blank=True, null=True)
     instagram = models.URLField(blank=True, null=True)
@@ -36,54 +39,83 @@ class Categoria(models.Model):
     def __str__(self):
         estado = "✅" if self.activa else "❌"
         return f"{self.nombre} ({estado})"
-
-# 3. EQUIPO
-class Equipo(models.Model):
-    categoria = models.ForeignKey(Categoria, related_name='equipos', on_delete=models.CASCADE)
-    nombre = models.CharField(max_length=100)
     
-    # Redes Sociales (Opcionales)
-    web_oficial = models.URLField(blank=True, null=True)
-    facebook = models.URLField(blank=True, null=True)
-    instagram = models.URLField(blank=True, null=True)
-    twitter = models.URLField(blank=True, null=True)
-
-    def __str__(self):
-        return self.nombre
-
-# 4. PILOTO
-class Piloto(models.Model):
-    equipo = models.ForeignKey(Equipo, related_name='pilotos', on_delete=models.CASCADE)
-    nombre = models.CharField(max_length=100)
-
-    apodo = models.CharField(max_length=50, blank=True, null=True)
-    foto_url = models.URLField(verbose_name="URL Foto Piloto", blank=True, null=True)
-    instagram = models.URLField(blank=True, null=True)
-
-    def __str__(self):
-        return f"{self.nombre} - {self.equipo.nombre}"
-
-# 5. NOTICIAS
-class Noticia(models.Model):
-    titulo = models.CharField(max_length=200)
-    resumen = models.TextField(help_text="Texto corto para la tarjeta de previsualización")
-    cuerpo = models.TextField(verbose_name="Contenido Completo de la Noticia") # <--- NUEVO: El artículo entero
-    imagen_url = models.URLField(verbose_name="URL de la Imagen Principal")
-    fecha = models.DateTimeField(auto_now_add=True)
-
-    # --- RELACIONES OPCIONALES (TAGS) ---
-    # Esto permite vincular la noticia a quien quieras. Pueden quedar vacíos.
-    organizacion = models.ForeignKey(Organizacion, on_delete=models.SET_NULL, null=True, blank=True, related_name="noticias")
-    categoria = models.ForeignKey(Categoria, on_delete=models.SET_NULL, null=True, blank=True, related_name="noticias")
-    equipo = models.ForeignKey(Equipo, on_delete=models.SET_NULL, null=True, blank=True, related_name="noticias")
+class Video(models.Model):
+    titulo = models.CharField(max_length=100)
+    url_youtube = models.URLField()
+    # related_name='videos' es CLAVE para que el Serializer de Categoria lo encuentre
+    categoria = models.ForeignKey(Categoria, related_name='videos', on_delete=models.CASCADE)
+    fecha_publicacion = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.titulo
+
+# Modelo para Equipos de competición
+class Equipo(models.Model):
+    nombre = models.CharField(max_length=100)
+    logo_url = models.URLField(blank=True, null=True)
+    web_oficial = models.URLField(blank=True, null=True)
+    twitter = models.CharField(max_length=100, blank=True, null=True)
+    instagram = models.CharField(max_length=100, blank=True, null=True)
+    facebook = models.URLField(blank=True, null=True)
+    categoria = models.ForeignKey(Categoria, related_name='equipos', on_delete=models.CASCADE)
     
-class PerfilUsuario(models.Model):
-    usuario = models.OneToOneField(User, on_delete=models.CASCADE, related_name='perfil')
-    # Aquí guardamos a qué categorías sigue. ManyToMany significa "Un usuario sigue muchas categorías"
-    suscripciones = models.ManyToManyField(Categoria, blank=True, related_name="suscriptores")
+    def __str__(self):
+        return self.nombre
+
+# Modelo para Pilotos asociados a un equipo
+class Piloto(models.Model):
+    nombre = models.CharField(max_length=100)
+    apodo = models.CharField(max_length=50, blank=True, null=True)
+    nacionalidad = models.CharField(max_length=50, default='INT') 
+    
+    foto_url = models.URLField(blank=True, null=True)
+    instagram = models.CharField(max_length=100, blank=True, null=True)
+    
+    equipo = models.ForeignKey(Equipo, related_name='pilotos', on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return self.nombre
+
+# Modelo para Noticias y Resultados de carreras
+class Noticia(models.Model):
+    TIPOS = (
+        ('NOTICIA', 'Noticia General'),
+        ('RESULTADO', 'Resultado de Carrera'),
+    )
+
+    titulo = models.CharField(max_length=200)
+    resumen = models.TextField(blank=True, null=True)
+    contenido = models.TextField(blank=True, null=True)
+    imagen_url = models.URLField(blank=True, null=True)
+    fecha = models.DateTimeField(auto_now_add=True)
+    fecha_manual = models.DateTimeField(null=True, blank=True, verbose_name="Fecha Manual (Opcional)")
+    tipo = models.CharField(max_length=20, choices=TIPOS, default='NOTICIA')
+    link_resultado = models.URLField(blank=True, null=True, help_text="Poner aquí el link al PDF o tabla de tiempos (solo para Resultados)")
+
+    organizacion = models.ForeignKey(Organizacion, on_delete=models.CASCADE, null=True, blank=True)
+    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, null=True, blank=True)
+    equipo = models.ForeignKey(Equipo, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
-        return f"Perfil de {self.usuario.username}"
+        return f"[{self.tipo}] {self.titulo}"
+    
+# Perfil extendido de usuario para gestión de suscripciones y roles
+class PerfilUsuario(models.Model):
+    usuario = models.OneToOneField(User, on_delete=models.CASCADE, related_name='perfil')
+    suscripciones = models.ManyToManyField(Categoria, blank=True, related_name='suscriptores')
+    equipo_administrado = models.OneToOneField(
+        'Equipo', 
+        on_delete=models.SET_NULL, 
+        null=True, 
+        blank=True, 
+        related_name='administrador'
+    )
+
+    def __str__(self):
+        return self.usuario.username
+
+@receiver(post_save, sender=User)
+def crear_perfil_usuario(sender, instance, created, **kwargs):
+    if created:
+        PerfilUsuario.objects.create(usuario=instance)

@@ -26,6 +26,7 @@ function Footer() {
               <a href="#" className="bg-[#2A2A2A] p-2 rounded-full hover:bg-[#E10600] hover:text-white transition-all"><Facebook size={20} /></a>
               <a href="#" className="bg-[#2A2A2A] p-2 rounded-full hover:bg-[#E10600] hover:text-white transition-all"><Youtube size={20} /></a>
             </div>
+
           </div>
 
           {/* COLUMNA 2: Enlaces Rápidos */}
@@ -47,6 +48,11 @@ function Footer() {
                   <span className="w-1.5 h-1.5 bg-[#E10600] rounded-full"></span> Directorio de Equipos
                 </Link>
               </li>
+              <li>
+                <Link to="/about" className="hover:text-[#E10600] transition-colors flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 bg-[#E10600] rounded-full"></span>Nosotros
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -60,6 +66,7 @@ function Footer() {
               <li><a href="#" className="hover:text-white transition-colors">Trabaja con nosotros</a></li>
             </ul>
           </div>
+
 
           {/* COLUMNA 4: Contacto */}
           <div>
@@ -77,6 +84,7 @@ function Footer() {
                 <Phone className="text-[#E10600] shrink-0" size={18} />
                 <span>+52 (55) 1234-5678</span>
               </li>
+              
             </ul>
           </div>
 

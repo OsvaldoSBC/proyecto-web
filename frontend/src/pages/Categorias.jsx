@@ -1,113 +1,133 @@
-import { useEffect, useState } from 'react'
-import axios from 'axios'
-import { Trophy, ArrowRight, Search } from 'lucide-react'
+import { useEffect, useState, useContext } from 'react'
 import { Link } from 'react-router-dom'
-
-const getYoutubeEmbed = (url) => {
-  if (!url) return null;
-  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
-  const match = url.match(regExp);
-  return (match && match[2].length === 11) ? `https://www.youtube.com/embed/${match[2]}` : null;
-}
+import axios from 'axios'
+import AuthContext from '../context/AuthContext'
+import { Bell, Trophy, Filter, X } from 'lucide-react'
 
 function Categorias() {
   const [categorias, setCategorias] = useState([])
-  const [busqueda, setBusqueda] = useState("") // <--- Estado del buscador
+  const { user, authTokens } = useContext(AuthContext)
+  const [misSuscripciones, setMisSuscripciones] = useState([])
+  
+  const [verSoloMisSuscripciones, setVerSoloMisSuscripciones] = useState(false)
 
   useEffect(() => {
+    // Carga inicial de categorías
     axios.get('http://127.0.0.1:8000/api/categorias/')
       .then(res => setCategorias(res.data))
-      .catch(err => console.error("Error:", err))
-  }, [])
+      .catch(err => console.error(err))
 
-  // --- FILTRADO DOBLE ---
-  // Buscamos en el nombre de la categoría O en el nombre de la organización
-  const categoriasFiltradas = categorias.filter(cat => 
-    cat.nombre.toLowerCase().includes(busqueda.toLowerCase()) || 
-    (cat.nombre_organizacion && cat.nombre_organizacion.toLowerCase().includes(busqueda.toLowerCase()))
-  )
+    // Carga de suscripciones si el usuario está autenticado
+    if (user && authTokens) {
+        axios.get('http://127.0.0.1:8000/api/mi-perfil/', {
+            headers: { 'Authorization': `Bearer ${authTokens.access}` }
+        })
+        .then(res => setMisSuscripciones(res.data.suscripciones))
+        .catch(err => console.error(err))
+    }
+  }, [user, authTokens])
+
+  let categoriasAVisualizar = [...categorias]
+
+  // Filtrado por suscripciones
+  if (verSoloMisSuscripciones) {
+      categoriasAVisualizar = categoriasAVisualizar.filter(cat => misSuscripciones.includes(cat.id))
+  }
+
+  // Ordenamiento: Categorías suscritas primero
+  categoriasAVisualizar.sort((a, b) => {
+      const aEsFav = misSuscripciones.includes(a.id);
+      const bEsFav = misSuscripciones.includes(b.id);
+      if (aEsFav && !bEsFav) return -1;
+      if (!aEsFav && bEsFav) return 1;
+      return 0;
+  });
 
   return (
-    <div className="space-y-12 animate-fade-in">
+    <div className="space-y-10 animate-fade-in">
       
-      {/* HEADER CON BUSCADOR */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-l-8 border-[#E10600] pl-6">
+      <div className="flex flex-col md:flex-row justify-between items-end gap-6 border-b border-gray-800 pb-8">
         <div>
-          <h1 className="text-4xl md:text-5xl font-black italic uppercase text-white tracking-tighter">
+            <h1 className="text-5xl md:text-6xl font-black italic uppercase text-white tracking-tighter mb-2">
             Categorías <span className="text-[#E10600]">Oficiales</span>
-          </h1>
-          <p className="text-gray-400 mt-2 text-lg">Encuentra tu serie favorita.</p>
+            </h1>
+            <p className="text-gray-400 max-w-lg">
+                Explora las series más emocionantes del automovilismo. Sigue tus favoritas para personalizar tu experiencia.
+            </p>
         </div>
 
-        {/* BUSCADOR */}
-        <div className="relative w-full md:w-80">
-          <Search className="absolute left-4 top-3.5 text-gray-500" size={20} />
-          <input 
-            type="text" 
-            placeholder="Buscar categoría u organización..." 
-            className="w-full bg-[#1E1E1E] border border-gray-700 rounded-full py-3 pl-12 pr-4 text-white placeholder-gray-500 focus:outline-none focus:border-[#E10600] transition-all"
-            value={busqueda}
-            onChange={(e) => setBusqueda(e.target.value)}
-          />
-        </div>
-      </div>
-
-      {/* LISTA FILTRADA */}
-      <div className="grid grid-cols-1 gap-12">
-        {categoriasFiltradas.length > 0 ? (
-          categoriasFiltradas.map(cat => {
-            const videoEmbed = getYoutubeEmbed(cat.video_url);
-
-            return (
-              <div key={cat.id} className="bg-[#1E1E1E] rounded-2xl overflow-hidden border border-gray-800 shadow-2xl hover:border-[#E10600] transition-all duration-300">
-                
-                <div className="grid grid-cols-1 lg:grid-cols-2">
-                  
-                  {/* Multimedia */}
-                  <div className="h-64 lg:h-auto relative bg-black">
-                    {videoEmbed ? (
-                      <iframe 
-                        className="w-full h-full object-cover"
-                        src={videoEmbed} 
-                        title={cat.nombre}
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                        allowFullScreen
-                      ></iframe>
-                    ) : (
-                      <img src={cat.foto_url} alt={cat.nombre} className="w-full h-full object-cover opacity-90" />
-                    )}
-                  </div>
-
-                  {/* Info */}
-                  <div className="p-8 flex flex-col justify-center bg-gradient-to-br from-[#1E1E1E] to-[#121212]">
-                    <div className="flex items-center gap-2 text-[#E10600] font-bold uppercase tracking-widest text-xs mb-2">
-                      <Trophy size={14} />
-                      {cat.nombre_organizacion || "Organización Oficial"}
-                    </div>
-                    
-                    <h2 className="text-4xl font-black italic text-white uppercase mb-4">{cat.nombre}</h2>
-                    <p className="text-gray-400 mb-8 line-clamp-3">{cat.descripcion}</p>
-                    
-                    <Link 
-                      to={`/categorias/${cat.id}`} 
-                      className="self-start flex items-center gap-2 bg-[#121212] border border-gray-700 text-white px-8 py-4 rounded font-bold uppercase tracking-wider hover:bg-[#E10600] hover:border-[#E10600] transition-all group"
-                    >
-                      Ver Ficha Técnica <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform"/>
-                    </Link>
-
-                  </div>
-                </div>
-              </div>
-            )
-          })
-        ) : (
-           <div className="text-center py-20 text-gray-500 italic border border-dashed border-gray-800 rounded-xl">
-              No encontramos ninguna categoría con ese nombre.
-           </div>
+        {user && (
+            <button 
+                onClick={() => setVerSoloMisSuscripciones(!verSoloMisSuscripciones)}
+                className={`flex items-center gap-3 px-6 py-3 rounded-full font-bold uppercase text-xs tracking-widest transition-all shadow-lg ${
+                    verSoloMisSuscripciones 
+                    ? "bg-[#E10600] text-white ring-2 ring-offset-2 ring-offset-black ring-[#E10600]" // Activo
+                    : "bg-[#1E1E1E] text-gray-400 hover:text-white hover:bg-gray-800" // Inactivo
+                }`}
+            >
+                {verSoloMisSuscripciones ? <Filter size={16} className="fill-white"/> : <Filter size={16}/>}
+                {verSoloMisSuscripciones ? "Viendo Mis Suscripciones" : "Filtrar Mis Suscripciones"}
+                {verSoloMisSuscripciones && <X size={16} className="ml-2"/>}
+            </button>
         )}
       </div>
+
+      {categoriasAVisualizar.length > 0 ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {categoriasAVisualizar.map(cat => {
+            const esFavorita = misSuscripciones.includes(cat.id);
+            
+            return (
+                <Link 
+                to={`/categorias/${cat.id}`} 
+                key={cat.id} 
+                className="group relative h-96 rounded-2xl overflow-hidden bg-black border border-gray-800 shadow-2xl transition-all hover:-translate-y-2"
+                >
+                <img 
+                    src={cat.foto_url} 
+                    alt={cat.nombre} 
+                    className={`w-full h-full object-cover transition-transform duration-700 ${esFavorita ? 'group-hover:scale-105' : 'grayscale group-hover:grayscale-0 group-hover:scale-110'}`} 
+                />
+                
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-80 group-hover:opacity-60 transition-opacity"></div>
+                
+                {esFavorita && (
+                    <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-md border border-[#E10600]/50 text-white text-[10px] font-bold px-3 py-1.5 rounded-full uppercase flex items-center gap-2 shadow-lg z-10">
+                        <div className="w-2 h-2 rounded-full bg-[#E10600] animate-pulse"></div>
+                        Siguiendo
+                    </div>
+                )}
+
+                <div className="absolute bottom-0 left-0 right-0 p-8">
+                    <div className="flex items-center gap-2 mb-2 opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-4 group-hover:translate-y-0 duration-300">
+                         <span className="text-[#E10600] text-xs font-bold uppercase tracking-widest flex items-center gap-1">
+                            <Trophy size={12}/> Ver Detalles
+                         </span>
+                    </div>
+                    <h2 className="text-white font-black text-3xl md:text-4xl uppercase italic leading-none drop-shadow-lg group-hover:text-[#E10600] transition-colors">
+                        {cat.nombre}
+                    </h2>
+                    <div className={`mt-4 h-1 rounded-full transition-all duration-500 ${esFavorita ? "w-1/3 bg-[#E10600]" : "w-12 bg-gray-600 group-hover:w-full group-hover:bg-white"}`}></div>
+                </div>
+                </Link>
+            )
+            })}
+        </div>
+      ) : (
+          <div className="py-20 text-center border border-dashed border-gray-800 rounded-2xl bg-[#1E1E1E]/50">
+              <Bell size={48} className="mx-auto text-gray-600 mb-4"/>
+              <h3 className="text-2xl font-bold text-white mb-2">Aún no sigues ninguna categoría</h3>
+              <p className="text-gray-400 mb-6">Suscríbete a tus favoritas para verlas aquí.</p>
+              <button 
+                onClick={() => setVerSoloMisSuscripciones(false)}
+                className="text-[#E10600] font-bold uppercase text-sm hover:underline"
+              >
+                  Ver todas las categorías
+              </button>
+          </div>
+      )}
     </div>
   )
 }
 
-export default Categorias
+export default Categorias 

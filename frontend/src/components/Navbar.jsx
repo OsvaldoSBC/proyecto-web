@@ -1,13 +1,12 @@
 import { useState, useContext } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Menu, X, Flag, User, LogOut, LogIn } from 'lucide-react'
-import AuthContext from '../context/AuthContext' // <--- 1. IMPORTAMOS EL CONTEXTO
+import AuthContext from '../context/AuthContext'
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const location = useLocation()
   
-  // 2. SACAMOS EL USUARIO Y LA FUNCIÓN LOGOUT DEL CEREBRO
   const { user, logoutUser } = useContext(AuthContext)
 
   const isActive = (path) => {
@@ -19,33 +18,33 @@ function Navbar() {
       <div className="container mx-auto px-4 py-4">
         <div className="flex justify-between items-center">
           
-          {/* LOGO */}
           <Link to="/" className="text-2xl font-black italic tracking-tighter text-white flex items-center gap-2">
             <Flag className="text-[#E10600]" />
             RACING<span className="text-[#E10600]">HUB</span>
           </Link>
 
-          {/* MENÚ ESCRITORIO (Centro) */}
           <div className="hidden md:flex space-x-8 font-bold uppercase text-sm tracking-wider">
             <Link to="/" className={`${isActive('/')} transition-colors`}>Inicio</Link>
-            <Link to="/noticias" className={`${isActive('/noticias')} transition-colors`}>Noticias</Link>
+            <Link to="/noticias" className={`${isActive('/noticias')} transition-colors`}>Blog</Link>
             <Link to="/categorias" className={`${isActive('/categorias')} transition-colors`}>Categorías</Link>
             <Link to="/equipos" className={`${isActive('/equipos')} transition-colors`}>Equipos</Link>
+            <Link to="/race-suite" className="hidden md:flex items-center gap-2 text-gray-400 hover:text-white text-xs font-bold uppercase tracking-widest mr-6 border-r border-gray-700 pr-6"><div className="w-2 h-2 bg-[#E10600] rounded-full animate-pulse"></div>Race Suite</Link>
           </div>
 
-          {/* ZONA DE USUARIO (Derecha) */}
           <div className="hidden md:flex items-center gap-4">
             
             {user ? (
-              // --- SI ESTÁ LOGUEADO ---
               <div className="flex items-center gap-4 animate-fade-in">
-                <div className="flex items-center gap-2 text-white font-bold text-sm uppercase">
-                    <div className="bg-[#E10600] p-1 rounded-full">
-                        <User size={16} fill="white" />
+                
+                <Link 
+                    to="/perfil" 
+                    className="flex items-center gap-2 text-white font-bold text-sm uppercase hover:text-[#E10600] transition-colors group cursor-pointer"
+                >
+                    <div className="bg-[#E10600] p-1 rounded-full group-hover:bg-white transition-colors">
+                        <User size={16} className="text-white group-hover:text-[#E10600]" />
                     </div>
-                    {/* Si el token trae username lo muestra, si no dice "Piloto" */}
                     <span>Hola, {user.username || "Piloto"}</span>
-                </div>
+                </Link>
                 
                 <button 
                     onClick={logoutUser} 
@@ -55,7 +54,6 @@ function Navbar() {
                 </button>
               </div>
             ) : (
-              // --- SI NO ESTÁ LOGUEADO ---
               <div className="flex items-center gap-4 animate-fade-in">
                 <Link to="/login" className="text-gray-300 hover:text-white text-sm font-bold uppercase transition-colors">
                   Login
@@ -68,13 +66,11 @@ function Navbar() {
 
           </div>
 
-          {/* BOTÓN MENÚ MÓVIL */}
           <button className="md:hidden text-white" onClick={() => setIsOpen(!isOpen)}>
             {isOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
         </div>
 
-        {/* MENÚ MÓVIL DESPLEGABLE */}
         {isOpen && (
           <div className="md:hidden mt-4 pb-4 border-t border-gray-800 space-y-4 animate-fade-in">
             <Link to="/" className="block text-white font-bold uppercase py-2 hover:text-[#E10600]" onClick={() => setIsOpen(false)}>Inicio</Link>

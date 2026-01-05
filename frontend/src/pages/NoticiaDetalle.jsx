@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import axios from 'axios'
-import { ChevronLeft, Calendar, User, Trophy, Flag } from 'lucide-react'
+import { Calendar, User, ChevronLeft, ExternalLink, Trophy, FileText } from 'lucide-react'
 
 function NoticiaDetalle() {
   const { id } = useParams()
@@ -13,59 +13,113 @@ function NoticiaDetalle() {
       .catch(err => console.error(err))
   }, [id])
 
-  if (!nota) return <div className="text-white text-center py-20">Cargando noticia...</div>
+  if (!nota) return <div className="text-white text-center py-20">Cargando...</div>
 
   const formatearFecha = (fechaString) => {
     const opciones = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
     return new Date(fechaString).toLocaleDateString('es-MX', opciones)
   }
 
+  const esResultado = nota.tipo === 'RESULTADO'
+
   return (
-    <div className="max-w-4xl mx-auto animate-fade-in-up">
+    <div className="max-w-4xl mx-auto animate-fade-in pb-20">
       
-      {/* Botón Volver */}
       <Link to="/noticias" className="inline-flex items-center gap-2 text-gray-400 hover:text-white mb-6 transition-colors">
         <ChevronLeft size={20} /> Volver a Noticias
       </Link>
 
-      {/* Tags de Contexto */}
-      <div className="flex flex-wrap gap-3 mb-4">
-        {nota.nombre_organizacion && (
-          <span className="flex items-center gap-1 text-[#E10600] font-bold text-xs uppercase tracking-widest border border-[#E10600] px-3 py-1 rounded-full">
-            <Flag size={12} /> {nota.nombre_organizacion}
-          </span>
+      <article className="bg-[#1E1E1E] rounded-3xl overflow-hidden border border-gray-800 shadow-2xl">
+        
+        {nota.imagen_url && (
+            <div className="h-[300px] md:h-[400px] w-full relative group">
+                <img src={nota.imagen_url} alt={nota.titulo} className="w-full h-full object-cover" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#1E1E1E] via-black/40 to-transparent"></div>
+                
+                <div className="absolute bottom-0 left-0 p-8 w-full">
+                    <div className="flex gap-2 mb-3">
+                        {nota.nombre_categoria && (
+                            <span className="bg-[#E10600] text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider inline-flex items-center gap-1">
+                                <Trophy size={12}/> {nota.nombre_categoria}
+                            </span>
+                        )}
+                        {esResultado && (
+                            <span className="bg-white text-black text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider inline-flex items-center gap-1">
+                                <FileText size={12}/> Resultados Oficiales
+                            </span>
+                        )}
+                    </div>
+
+                    <h1 className="text-3xl md:text-5xl font-black italic text-white uppercase leading-none drop-shadow-lg">
+                        {nota.titulo}
+                    </h1>
+                </div>
+            </div>
         )}
-        {nota.nombre_categoria && (
-          <span className="flex items-center gap-1 text-yellow-500 font-bold text-xs uppercase tracking-widest border border-yellow-500 px-3 py-1 rounded-full">
-            <Trophy size={12} /> {nota.nombre_categoria}
-          </span>
-        )}
-        {nota.nombre_equipo && (
-          <span className="flex items-center gap-1 text-blue-400 font-bold text-xs uppercase tracking-widest border border-blue-400 px-3 py-1 rounded-full">
-            <User size={12} /> {nota.nombre_equipo}
-          </span>
-        )}
-      </div>
 
-      {/* Título y Fecha */}
-      <h1 className="text-4xl md:text-6xl font-black italic text-white uppercase leading-tight mb-4">
-        {nota.titulo}
-      </h1>
-      <div className="flex items-center gap-2 text-gray-400 font-mono text-sm mb-8">
-        <Calendar size={16} /> {formatearFecha(nota.fecha)}
-      </div>
+        <div className="p-8">
 
-      {/* Imagen Principal */}
-      <div className="w-full aspect-video rounded-2xl overflow-hidden mb-10 shadow-2xl">
-        <img src={nota.imagen_url} alt={nota.titulo} className="w-full h-full object-cover" />
-      </div>
+            {esResultado ? (
+                <div className="space-y-8">
+                    
+                    {nota.link_resultado && (
+                        <div className="bg-gray-800/50 p-6 rounded-2xl border border-gray-700 flex flex-col md:flex-row items-center justify-between gap-4">
+                             <div>
+                                <h3 className="text-white font-bold text-lg">Documento Oficial</h3>
+                                <p className="text-gray-400 text-sm">Visualiza los tiempos completos o descarga el PDF original.</p>
+                             </div>
+                             <a 
+                                href={nota.link_resultado} 
+                                target="_blank" 
+                                rel="noreferrer" 
+                                className="bg-[#E10600] hover:bg-red-700 text-white px-6 py-3 rounded-full font-bold uppercase tracking-widest text-xs transition-all shadow-lg flex items-center gap-2 whitespace-nowrap"
+                             >
+                                <ExternalLink size={16}/> Abrir Fuente Original
+                             </a>
+                        </div>
+                    )}
 
-      {/* CUERPO DE LA NOTICIA */}
-      {/* whitespace-pre-line respeta los saltos de línea que hagas en el Admin */}
-      <div className="prose prose-invert prose-lg max-w-none text-gray-300 whitespace-pre-line leading-relaxed">
-        {nota.cuerpo}
-      </div>
+                    {nota.link_resultado && (
+                        <div className="border border-gray-700 rounded-xl overflow-hidden bg-white h-[800px] w-full shadow-2xl relative">
+                            <div className="absolute top-0 w-full bg-gray-100 text-gray-500 text-[10px] text-center p-1 z-10 border-b">
+                                Vista Previa Integrada
+                            </div>
+                            <iframe 
+                                src={nota.link_resultado} 
+                                className="w-full h-full pt-6"
+                                title="Resultados"
+                                sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                            ></iframe>
+                        </div>
+                    )}
+                </div>
+            ) : (
+                <div className="prose prose-invert max-w-none">
+                    {nota.resumen && (
+                        <p className="text-xl text-gray-300 font-medium leading-relaxed mb-6 border-l-4 border-[#E10600] pl-4 italic">
+                            {nota.resumen}
+                        </p>
+                    )}
+                    <div className="text-gray-400 whitespace-pre-line leading-relaxed text-lg">
+                        {nota.contenido}
+                    </div>
+                </div>
+            )}
 
+            <div className="mt-12 pt-6 border-t border-gray-800 flex items-center justify-between text-gray-500 text-sm font-mono">
+                <div className="flex items-center gap-2">
+                    <Calendar size={14} /> 
+                    {formatearFecha(nota.fecha)}
+                </div>
+                {nota.nombre_equipo && (
+                    <div className="flex items-center gap-2">
+                        <User size={14} /> {nota.nombre_equipo}
+                    </div>
+                )}
+            </div>
+
+        </div>
+      </article>
     </div>
   )
 }
