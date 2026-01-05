@@ -33,7 +33,7 @@ Sigue estas instrucciones al pie de la letra para ejecutar el proyecto en tu má
 Abre tu terminal Anaconda Prompt y ejecuta:
 
 ```bash
-git clone <URL_DEL_REPOSITORIO>
+git clone https://github.com/OsvaldoSBC/proyecto-web
 cd Pagina
 ```
 
