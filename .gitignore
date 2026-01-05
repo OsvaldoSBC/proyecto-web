@@ -1,27 +1,23 @@
-# Python / Django
+# --- PYTHON & DJANGO ---
 __pycache__/
 *.py[cod]
-venv/
-db.sqlite3
-.env
-
-# Node / React
-node_modules/
-dist/
-.DS_Store
-
-
-# --- SEGURIDAD (¡Lo más importante!) ---
-.env
-db.sqlite3
-
-# --- PYTHON ---
-__pycache__/
-*.py[cod]
+*$py.class
 venv/
 env/
+.pytest_cache/
 
-# --- FRONTEND (NODE) ---
+# --- BASE DE DATOS & SECRETOS (¡NO SUBIR!) ---
+db.sqlite3
+.env
+
+# --- FRONTEND (NODE/REACT) ---
+node_modules/
+dist/
 frontend/node_modules/
 frontend/dist/
 frontend/.env
+
+# --- SISTEMA / IDE ---
+.DS_Store
+.vscode/
+.idea/
