@@ -1,11 +1,47 @@
 [
 {
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$4xa429BYQLOY6HSwNbObwA$19ihS+yR99edT8c86KFtrgmjPTpvRsnydk0+glCzlNs=",
+        "last_login": "2026-01-04T04:17:02.593Z",
+        "is_superuser": true,
+        "username": "obc",
+        "first_name": "",
+        "last_name": "",
+        "email": "obravoc2000@alumno.ipn.mx",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2026-01-04T04:12:00.879Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 14,
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$v5VZrXpcjfTKcrXmWi1HzP$+UssA5Nn8SrOrjvKteQAe6nyvk0f3Zz85qStyjzlHOE=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "test",
+        "first_name": "",
+        "last_name": "",
+        "email": "test@gmail.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-01-05T03:52:37.836Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
     "model": "api.organizacion",
     "pk": 1,
     "fields": {
         "nombre": "La Carrera Panamericana",
         "siglas": "LCP",
-        "descripcion": "La Carrera Panamericana es el evento automovil√ùstico tipo rally en carretera m√üs importante de M√öxico y uno de los m√üs emblem√üticos a nivel mundial. Esta competencia anual recorre una extensa ruta a trav√ös de la geograf√ùa nacional, reuniendo a pilotos internacionales y veh√ùculos cl√üsicos en una exigente prueba de velocidad y resistencia. M√üs que una carrera, representa una tradici¬æn hist¬ærica que celebra la pasi¬æn por el motor y proyecta la riqueza cultural y tur√ùstica del pa√ùs ante una audiencia global.",
+        "descripcion": "La Carrera Panamericana es el evento automovilÌstico tipo rally en carretera m·s importante de MÈxico y uno de los m·s emblem·ticos a nivel mundial. Esta competencia anual recorre una extensa ruta a travÈs de la geografÌa nacional, reuniendo a pilotos internacionales y vehÌculos cl·sicos en una exigente prueba de velocidad y resistencia. M·s que una carrera, representa una tradiciÛn histÛrica que celebra la pasiÛn por el motor y proyecta la riqueza cultural y turÌstica del paÌs ante una audiencia global.",
         "logo_url": "https://lacarrerapanamericana.com.mx/wp-content/uploads/2025/06/LCP-2024-BCO-SF-768x217.png",
         "web_oficial": "https://lacarrerapanamericana.com.mx/",
         "facebook": null,
@@ -20,7 +56,7 @@
     "fields": {
         "nombre": "Federation Internationale de l'Automobile",
         "siglas": "FIA",
-        "descripcion": "La Federaci¬æn Internacional del Autom¬ævil es la organizaci¬æn global sin fines de lucro que act¬∑a como el m√üximo ¬ærgano rector del automovilismo mundial y la movilidad. Establecida para regular, promover y garantizar la seguridad en el deporte motor, supervisa los campeonatos m√üs prestigiosos del planeta, como la F¬ærmula 1 y el Campeonato Mundial de Rally. Adem√üs de su rol deportivo, lidera iniciativas internacionales enfocadas en la seguridad vial, la sostenibilidad ambiental y la defensa de los derechos de los automovilistas en todo el mundo.",
+        "descripcion": "La FederaciÛn Internacional del AutomÛvil es la organizaciÛn global sin fines de lucro que act˙a como el m·ximo Ûrgano rector del automovilismo mundial y la movilidad. Establecida para regular, promover y garantizar la seguridad en el deporte motor, supervisa los campeonatos m·s prestigiosos del planeta, como la FÛrmula 1 y el Campeonato Mundial de Rally. Adem·s de su rol deportivo, lidera iniciativas internacionales enfocadas en la seguridad vial, la sostenibilidad ambiental y la defensa de los derechos de los automovilistas en todo el mundo.",
         "logo_url": "https://www.fia.com/sites/all/themes/penceo_theme/images/fia-footer-logo.png",
         "web_oficial": "https://www.fia.com/",
         "facebook": null,
@@ -35,7 +71,7 @@
     "fields": {
         "nombre": "Gran Turismo Challenge",
         "siglas": "GT Challenge",
-        "descripcion": "El GT Challenge de las Am√öricas es el campeonato de automovilismo de circuito m√üs importante y espectacular de la regi¬æn centroamericana y del Caribe. Este serial re¬∑ne a pilotos de alto nivel y veh√ùculos superdeportivos de marcas prestigiosas √πcomo Ferrari, Porsche y Audi√π en una competencia de velocidad pura que recorre los aut¬ædromos m√üs destacados de pa√ùses como Panam√ü, Rep¬∑blica Dominicana, El Salvador, Guatemala y Costa Rica. Se caracteriza por su atm¬æsfera de adrenalina, tecnolog√ùa de punta y un formato que mezcla la rivalidad deportiva con el exhibicionismo de autos de gran turismo.",
+        "descripcion": "El GT Challenge de las AmÈricas es el campeonato de automovilismo de circuito m·s importante y espectacular de la regiÛn centroamericana y del Caribe. Este serial re˙ne a pilotos de alto nivel y vehÌculos superdeportivos de marcas prestigiosas ócomo Ferrari, Porsche y Audió en una competencia de velocidad pura que recorre los autÛdromos m·s destacados de paÌses como Panam·, Rep˙blica Dominicana, El Salvador, Guatemala y Costa Rica. Se caracteriza por su atmÛsfera de adrenalina, tecnologÌa de punta y un formato que mezcla la rivalidad deportiva con el exhibicionismo de autos de gran turismo.",
         "logo_url": "https://img1.wsimg.com/isteam/ip/8b5dc2eb-d916-4822-8b85-fbe4140df1d4/GT%20Challenge%20Blanco.png/:/rs=w:667,h:192,cg:true,m/cr=w:667,h:192/qt=q:95",
         "web_oficial": "https://gtchallenge.org/",
         "facebook": "https://www.facebook.com/gtchallengedelasamericas",
@@ -50,7 +86,7 @@
     "fields": {
         "nombre": "NASCAR Mexico Series",
         "siglas": "NASCAR MX",
-        "descripcion": "NASCAR M√öxico Series es el campeonato de automovilismo tipo stock car m√üs importante de Am√örica Latina y la principal divisi¬æn internacional de NASCAR fuera de Estados Unidos. Este serial se distingue por su espectacularidad y alto nivel de competencia, presentando una parrilla nutrida de veh√ùculos V8 que disputan carreras llenas de contacto y adrenalina en los aut¬ædromos y ¬ævalos m√üs destacados del pa√ùs. Funciona como una plataforma clave para el desarrollo de talento, proyectando a pilotos mexicanos hacia las grandes ligas del automovilismo mundial, todo bajo un ambiente familiar y de entretenimiento masivo.",
+        "descripcion": "NASCAR MÈxico Series es el campeonato de automovilismo tipo stock car m·s importante de AmÈrica Latina y la principal divisiÛn internacional de NASCAR fuera de Estados Unidos. Este serial se distingue por su espectacularidad y alto nivel de competencia, presentando una parrilla nutrida de vehÌculos V8 que disputan carreras llenas de contacto y adrenalina en los autÛdromos y Ûvalos m·s destacados del paÌs. Funciona como una plataforma clave para el desarrollo de talento, proyectando a pilotos mexicanos hacia las grandes ligas del automovilismo mundial, todo bajo un ambiente familiar y de entretenimiento masivo.",
         "logo_url": "https://www.nascar.mx/wp-content/uploads/sites/41/2024/11/07/logo2025-NASCAR-Mexico-Series.png",
         "web_oficial": "https://www.nascar.mx/",
         "facebook": null,
@@ -65,7 +101,7 @@
     "fields": {
         "nombre": "Mexico Racing Cup",
         "siglas": "Copa NotiAuto",
-        "descripcion": "La Copa Notiauto es el campeonato de autos turismo m√üs importante y concurrido de M√öxico, reconocido como el principal semillero de talentos del automovilismo nacional. Este serial se distingue por su formato multi-categor√ùa, reuniendo en un mismo fin de semana parrillas masivas de m√üs de 100 veh√ùculos que compiten en el Aut¬ædromo Hermanos Rodr√ùguez y otras pistas clave del pa√ùs. Su enfoque combina la accesibilidad para pilotos amateurs con el rigor profesional, creando un espect√üculo din√ümico donde la destreza al volante prevalece sobre la potencia bruta, sirviendo de plataforma de ascenso para futuras estrellas internacionales.",
+        "descripcion": "La Copa Notiauto es el campeonato de autos turismo m·s importante y concurrido de MÈxico, reconocido como el principal semillero de talentos del automovilismo nacional. Este serial se distingue por su formato multi-categorÌa, reuniendo en un mismo fin de semana parrillas masivas de m·s de 100 vehÌculos que compiten en el AutÛdromo Hermanos RodrÌguez y otras pistas clave del paÌs. Su enfoque combina la accesibilidad para pilotos amateurs con el rigor profesional, creando un espect·culo din·mico donde la destreza al volante prevalece sobre la potencia bruta, sirviendo de plataforma de ascenso para futuras estrellas internacionales.",
         "logo_url": "https://duncanwebmin.notiauto.com/repository/sitios/logo/2.png?nc=1756830360",
         "web_oficial": "https://mexicoracingcup.com/",
         "facebook": "https://www.facebook.com/mexicoracingcup/",
@@ -80,7 +116,7 @@
     "fields": {
         "organizacion": 3,
         "nombre": "GTS FIA GT3",
-        "descripcion": "Es la categor√ùa reina del campeonato, conformada por superdeportivos de marcas de lujo (como Ferrari, Porsche o Audi) con homologaci¬æn internacional. Representa la m√üxima expresi¬æn tecnol¬ægica y de velocidad en pista, ofreciendo el nivel de competencia m√üs sofisticado y veloz del serial.",
+        "descripcion": "Es la categorÌa reina del campeonato, conformada por superdeportivos de marcas de lujo (como Ferrari, Porsche o Audi) con homologaciÛn internacional. Representa la m·xima expresiÛn tecnolÛgica y de velocidad en pista, ofreciendo el nivel de competencia m·s sofisticado y veloz del serial.",
         "activa": true,
         "foto_url": "https://img1.wsimg.com/isteam/ip/8b5dc2eb-d916-4822-8b85-fbe4140df1d4/Screenshot%202025-03-15%20at%2010.22.03%E2%80%AFAM.png/:/cr=t:4.35%25,l:0%25,w:100%25,h:91.3%25/rs=w:776,h:388,cg:true",
         "video_url": "https://www.youtube.com/watch?v=8njrl9v5vxo",
@@ -98,7 +134,7 @@
     "fields": {
         "organizacion": 3,
         "nombre": "GTS LIGHT",
-        "descripcion": "Es la divisi¬æn de desarrollo o acceso, destinada a veh√ùculos de gran turismo con prestaciones m√üs moderadas que la clase mayor. Funciona como una plataforma competitiva de transici¬æn, permitiendo a equipos y pilotos demostrar su talento y ganar experiencia antes de ascender a la categor√ùa estelar.",
+        "descripcion": "Es la divisiÛn de desarrollo o acceso, destinada a vehÌculos de gran turismo con prestaciones m·s moderadas que la clase mayor. Funciona como una plataforma competitiva de transiciÛn, permitiendo a equipos y pilotos demostrar su talento y ganar experiencia antes de ascender a la categorÌa estelar.",
         "activa": true,
         "foto_url": "https://img1.wsimg.com/isteam/ip/8b5dc2eb-d916-4822-8b85-fbe4140df1d4/Screenshot%202025-03-15%20at%2010.17.36%E2%80%AFAM.png/:/cr=t:0%25,l:0.82%25,w:98.36%25,h:100%25/rs=w:776,h:388,cg:true",
         "video_url": "https://www.youtube.com/watch?v=bbhQMuTtD1s&pp=ygUZSFVSQUNBTiBTVVBFUiBUUk9GRU8gUkFDRQ%3D%3D",
@@ -116,7 +152,7 @@
     "fields": {
         "organizacion": 3,
         "nombre": "SUPER V8",
-        "descripcion": "Una categor√ùa espectacular definida por la potencia bruta y el sonido inconfundible de sus motores de ocho cilindros. Se caracteriza por el uso de chasis tubulares y una mec√ünica robusta, donde el espect√üculo recae en la habilidad del piloto para domar la fuerza del auto con menos ayudas electr¬ænicas.",
+        "descripcion": "Una categorÌa espectacular definida por la potencia bruta y el sonido inconfundible de sus motores de ocho cilindros. Se caracteriza por el uso de chasis tubulares y una mec·nica robusta, donde el espect·culo recae en la habilidad del piloto para domar la fuerza del auto con menos ayudas electrÛnicas.",
         "activa": true,
         "foto_url": "https://img1.wsimg.com/isteam/ip/8b5dc2eb-d916-4822-8b85-fbe4140df1d4/Screenshot%202025-03-15%20at%2010.19.56%E2%80%AFAM.png/:/cr=t:1.38%25,l:0%25,w:100%25,h:97.25%25/rs=w:776,h:388,cg:true",
         "video_url": "https://www.youtube.com/watch?v=CEma6P3l4i8",
@@ -133,8 +169,8 @@
     "pk": 4,
     "fields": {
         "organizacion": 5,
-        "nombre": "TCR M√öxico",
-        "descripcion": "Turismos de especifiwcaci¬æn internacional (FIA); los autos de tracci¬æn delantera m√üs tecnol¬ægicos y r√üpidos del pa√ùs.",
+        "nombre": "TCR MÈxico",
+        "descripcion": "Turismos de especificaciÛn internacional (FIA); los autos de tracciÛn delantera m·s tecnolÛgicos y r·pidos del paÌs.",
         "activa": true,
         "foto_url": "https://duncanwebmin.notiauto.com/repository/sitios/innerpicstmp/tinyimg1716857600759733881.jpg?nc=1716857603",
         "video_url": "https://www.youtube.com/watch?v=ILaiCYu36TE",
@@ -152,7 +188,7 @@
     "fields": {
         "organizacion": 5,
         "nombre": "F4 NACAM",
-        "descripcion": "Monoplazas de ¬∑ltima generaci¬æn; el semillero principal para pilotos que buscan llegar a la F¬ærmula 1.",
+        "descripcion": "Monoplazas de ˙ltima generaciÛn; el semillero principal para pilotos que buscan llegar a la FÛrmula 1.",
         "activa": true,
         "foto_url": "https://enfoquenoticias.com.mx/wp-content/uploads/2023/05/nacam.jpg",
         "video_url": "https://www.youtube.com/watch?v=1e-_oJs_EYA",
@@ -170,7 +206,7 @@
     "fields": {
         "organizacion": 5,
         "nombre": "Copa TC2000",
-        "descripcion": "La categor√ùa m√üs ic¬ænica y competitiva; autos sed√ün con motores 2.0L altamente modificados y parrillas muy numerosas.",
+        "descripcion": "La categorÌa m·s icÛnica y competitiva; autos sed·n con motores 2.0L altamente modificados y parrillas muy numerosas.",
         "activa": true,
         "foto_url": "https://www.mundomotor.mx/wp-content/uploads/2019/01/copa_notiauto.jpg",
         "video_url": "https://www.youtube.com/watch?v=qgWpA7yYB5s",
@@ -188,7 +224,7 @@
     "fields": {
         "organizacion": 5,
         "nombre": "Vintage Pro Series",
-        "descripcion": "Autos cl√üsicos deportivos preparados para competencia, combinando nostalgia con altas velocidades.",
+        "descripcion": "Autos cl·sicos deportivos preparados para competencia, combinando nostalgia con altas velocidades.",
         "activa": true,
         "foto_url": "https://pbs.twimg.com/media/FAOks_IVEAMaiT0.jpg",
         "video_url": "https://www.youtube.com/watch?v=Rrr7lhoOuTY",
@@ -205,8 +241,8 @@
     "pk": 12,
     "fields": {
         "organizacion": 5,
-        "nombre": "F¬ærmula Ford Vintage",
-        "descripcion": "Monoplazas hist¬æricos de llantas descubiertas; una exhibici¬æn de la √öpoca de oro del automovilismo.",
+        "nombre": "FÛrmula Ford Vintage",
+        "descripcion": "Monoplazas histÛricos de llantas descubiertas; una exhibiciÛn de la Època de oro del automovilismo.",
         "activa": true,
         "foto_url": "https://www.rtv.org.mx/masnoticias/wp-content/uploads/sites/13/2024/08/Oscar-Hidalgo.jpg",
         "video_url": null,
@@ -687,7 +723,7 @@
     "model": "api.piloto",
     "pk": 1,
     "fields": {
-        "nombre": "Gerardo Rej¬æn",
+        "nombre": "Gerardo RejÛn",
         "apodo": null,
         "nacionalidad": "INT",
         "foto_url": null,
@@ -699,7 +735,7 @@
     "model": "api.piloto",
     "pk": 2,
     "fields": {
-        "nombre": "Julio Rej¬æn",
+        "nombre": "Julio RejÛn",
         "apodo": null,
         "nacionalidad": "INT",
         "foto_url": null,
@@ -711,7 +747,7 @@
     "model": "api.piloto",
     "pk": 3,
     "fields": {
-        "nombre": "Gerardo Rej¬æn Jr.",
+        "nombre": "Gerardo RejÛn Jr.",
         "apodo": null,
         "nacionalidad": "INT",
         "foto_url": null,
@@ -723,7 +759,7 @@
     "model": "api.piloto",
     "pk": 4,
     "fields": {
-        "nombre": "Rodrigo Rej¬æn",
+        "nombre": "Rodrigo RejÛn",
         "apodo": null,
         "nacionalidad": "INT",
         "foto_url": null,
@@ -771,7 +807,7 @@
     "model": "api.piloto",
     "pk": 8,
     "fields": {
-        "nombre": "Gabriel P√örez",
+        "nombre": "Gabriel PÈrez",
         "apodo": null,
         "nacionalidad": "INT",
         "foto_url": null,
@@ -783,7 +819,7 @@
     "model": "api.piloto",
     "pk": 9,
     "fields": {
-        "nombre": "V√ùctor P√örez Couto",
+        "nombre": "VÌctor PÈrez Couto",
         "apodo": null,
         "nacionalidad": "INT",
         "foto_url": null,
@@ -903,7 +939,7 @@
     "model": "api.piloto",
     "pk": 19,
     "fields": {
-        "nombre": "Pablo P√örez de Lara",
+        "nombre": "Pablo PÈrez de Lara",
         "apodo": null,
         "nacionalidad": "INT",
         "foto_url": null,
@@ -927,7 +963,7 @@
     "model": "api.piloto",
     "pk": 21,
     "fields": {
-        "nombre": "Mario Dom√ùnguez",
+        "nombre": "Mario DomÌnguez",
         "apodo": null,
         "nacionalidad": "INT",
         "foto_url": null,
@@ -987,7 +1023,7 @@
     "model": "api.piloto",
     "pk": 26,
     "fields": {
-        "nombre": "Andr√ös Orea Jr.",
+        "nombre": "AndrÈs Orea Jr.",
         "apodo": null,
         "nacionalidad": "INT",
         "foto_url": null,
@@ -999,7 +1035,7 @@
     "model": "api.piloto",
     "pk": 27,
     "fields": {
-        "nombre": "Jer¬ænimo Guzm√ün",
+        "nombre": "JerÛnimo Guzm·n",
         "apodo": null,
         "nacionalidad": "INT",
         "foto_url": null,
@@ -1035,7 +1071,7 @@
     "model": "api.piloto",
     "pk": 30,
     "fields": {
-        "nombre": "C√ösar Jim√önez",
+        "nombre": "CÈsar JimÈnez",
         "apodo": null,
         "nacionalidad": "INT",
         "foto_url": null,
@@ -1047,7 +1083,7 @@
     "model": "api.piloto",
     "pk": 31,
     "fields": {
-        "nombre": "Rodrigo Orodo¬±ez",
+        "nombre": "Rodrigo OrodoÒez",
         "apodo": null,
         "nacionalidad": "INT",
         "foto_url": null,
@@ -1107,7 +1143,7 @@
     "model": "api.piloto",
     "pk": 36,
     "fields": {
-        "nombre": "Javier Hern√ündez",
+        "nombre": "Javier Hern·ndez",
         "apodo": null,
         "nacionalidad": "INT",
         "foto_url": null,
@@ -1167,7 +1203,7 @@
     "model": "api.piloto",
     "pk": 41,
     "fields": {
-        "nombre": "Germ√ün Avina",
+        "nombre": "Germ·n Avina",
         "apodo": null,
         "nacionalidad": "INT",
         "foto_url": null,
@@ -1203,7 +1239,7 @@
     "model": "api.piloto",
     "pk": 44,
     "fields": {
-        "nombre": "Bernardo Monta¬±o",
+        "nombre": "Bernardo MontaÒo",
         "apodo": null,
         "nacionalidad": "INT",
         "foto_url": null,
@@ -1263,7 +1299,7 @@
     "model": "api.piloto",
     "pk": 50,
     "fields": {
-        "nombre": "Carlos L¬æpez",
+        "nombre": "Carlos LÛpez",
         "apodo": null,
         "nacionalidad": "MEX",
         "foto_url": null,
@@ -1323,8 +1359,8 @@
     "model": "api.noticia",
     "pk": 1,
     "fields": {
-        "titulo": "El rugir del Gen 2: F4 NACAM se prepara para un 2026 de proyecci¬æn internacional",
-        "resumen": "La temporada 2026 de la F4 NACAM inicia marcada por la hegemon√ùa de Alessandros Racing tras su hist¬ærico cierre en 2025, centrando su evoluci¬æn en el pleno aprovechamiento del monoplaza Gen 2 Tatuus para proyectar pilotos hacia categor√ùas internacionales. Con el arranque de los tests oficiales en enero y la primera fecha puntuable en marzo en Amozoc, el serial busca consolidar el talento de figuras como Fernando Luque y Helio Meza, manteniendo su estatus como el semillero m√üs importante de Latinoam√örica bajo los est√ündares t√öcnicos de la FIA.",
+        "titulo": "El rugir del Gen 2: F4 NACAM se prepara para un 2026 de proyecciÛn internacional",
+        "resumen": "La temporada 2026 de la F4 NACAM inicia marcada por la hegemonÌa de Alessandros Racing tras su histÛrico cierre en 2025, centrando su evoluciÛn en el pleno aprovechamiento del monoplaza Gen 2 Tatuus para proyectar pilotos hacia categorÌas internacionales. Con el arranque de los tests oficiales en enero y la primera fecha puntuable en marzo en Amozoc, el serial busca consolidar el talento de figuras como Fernando Luque y Helio Meza, manteniendo su estatus como el semillero m·s importante de LatinoamÈrica bajo los est·ndares tÈcnicos de la FIA.",
         "contenido": "pendiente",
         "imagen_url": "https://duncanwebmin.notiauto.com/repository/sitios/innerpicstmp/tinyimg1729709060984545644.jpg?nc=1729709064",
         "fecha": "2026-01-04T08:31:52.931Z",
@@ -1340,8 +1376,8 @@
     "model": "api.noticia",
     "pk": 2,
     "fields": {
-        "titulo": "M√öxico se consolida como el epicentro mundial del Turismo: TCR M√öxico abrir√ü la temporada del FIA World Tour 2026",
-        "resumen": "La TCR M√öxico arranca el 2026 reafirmando su alianza con el FIA TCR World Tour para inaugurar la temporada mundial en abril en el Aut¬ædromo Hermanos Rodr√ùguez, un evento que contar√ü con un formato extendido de tres carreras y que servir√ü de vitrina para los talentos locales. Bajo el liderazgo de figuras como Juan Pablo Sierra y el empuje de equipos como Peralta Racing y VP Garage, el serial busca no solo el √öxito en casa, sino concretar la formaci¬æn de una estructura mexicana permanente en el circuito internacional, aprovechando la homologaci¬æn t√öcnica de los nuevos modelos CUPRA y Audi que dominan la parrilla actual.",
+        "titulo": "MÈxico se consolida como el epicentro mundial del Turismo: TCR MÈxico abrir· la temporada del FIA World Tour 2026",
+        "resumen": "La TCR MÈxico arranca el 2026 reafirmando su alianza con el FIA TCR World Tour para inaugurar la temporada mundial en abril en el AutÛdromo Hermanos RodrÌguez, un evento que contar· con un formato extendido de tres carreras y que servir· de vitrina para los talentos locales. Bajo el liderazgo de figuras como Juan Pablo Sierra y el empuje de equipos como Peralta Racing y VP Garage, el serial busca no solo el Èxito en casa, sino concretar la formaciÛn de una estructura mexicana permanente en el circuito internacional, aprovechando la homologaciÛn tÈcnica de los nuevos modelos CUPRA y Audi que dominan la parrilla actual.",
         "contenido": "pendiente",
         "imagen_url": "https://duncanwebmin.notiauto.com/repository/sitios/innerpicstmp/tinyimg1725584905803547757.jpg?nc=1725584907",
         "fecha": "2026-01-04T08:41:55.619Z",
@@ -1357,8 +1393,8 @@
     "model": "api.noticia",
     "pk": 3,
     "fields": {
-        "titulo": "La Vintage Pro Series arranca el 2026 con parrilla r√öcord y el reto del \"Gran Premio Hist¬ærico\"",
-        "resumen": "La Vintage Pro Series inicia su temporada 2026 el 31 de enero en la Ciudad de M√öxico con una parrilla hist¬ærica de m√üs de 25 veh√ùculos, consolid√ündose como el serial cl√üsico m√üs importante del pa√ùs dentro de la Copa Notiauto. Bajo el liderazgo del campe¬æn defensor √ãscar Hidalgo y con el Gran Premio Hist¬ærico como evento estelar del a¬±o, la categor√ùa implementar√ü nuevos ajustes t√öcnicos de equilibrio para intensificar la competencia entre marcas legendarias como Porsche, BMW y Ford, combinando la nostalgia visual con un alto nivel de exigencia deportiva en pista.",
+        "titulo": "La Vintage Pro Series arranca el 2026 con parrilla rÈcord y el reto del \"Gran Premio HistÛrico\"",
+        "resumen": "La Vintage Pro Series inicia su temporada 2026 el 31 de enero en la Ciudad de MÈxico con una parrilla histÛrica de m·s de 25 vehÌculos, consolid·ndose como el serial cl·sico m·s importante del paÌs dentro de la Copa Notiauto. Bajo el liderazgo del campeÛn defensor ”scar Hidalgo y con el Gran Premio HistÛrico como evento estelar del aÒo, la categorÌa implementar· nuevos ajustes tÈcnicos de equilibrio para intensificar la competencia entre marcas legendarias como Porsche, BMW y Ford, combinando la nostalgia visual con un alto nivel de exigencia deportiva en pista.",
         "contenido": "pendiente",
         "imagen_url": "https://images.contentstack.io/v3/assets/blt75c85f063ac4ae63/bltdb76ef9572f802ff/65f8edd712c1ecdff90c122a/Porsche_911_Longnose_VARA_Patrick_Long_Chad_Plavan_EOSR9413.jpg",
         "fecha": "2026-01-04T08:43:15.528Z",
@@ -1415,16 +1451,13 @@
 },
 {
     "model": "api.perfilusuario",
-    "pk": 14,
+    "pk": 15,
     "fields": {
-        "usuario": 13,
-        "equipo_administrado": 18,
+        "usuario": 14,
+        "equipo_administrado": 5,
         "suscripciones": [
-            3
+            2
         ]
     }
 }
 ]
-
-
-
